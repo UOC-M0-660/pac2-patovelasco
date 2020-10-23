@@ -1,14 +1,16 @@
 package edu.uoc.pac2.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
-import edu.uoc.pac2.data.BooksInteractor
 
 /**
  * An activity representing a list of Books.
@@ -31,6 +33,7 @@ class BookListActivity : AppCompatActivity() {
         getBooks()
 
         // TODO: Add books data to Firestore [Use once for new projects with empty Firestore Database]
+        //FirestoreBookData.addBooksDataToFirestoreDatabase()
     }
 
     // Init Top Toolbar
@@ -53,16 +56,38 @@ class BookListActivity : AppCompatActivity() {
 
     // TODO: Get Books and Update UI
     private fun getBooks() {
+        adapter.setBooks(loadBooksFromLocalDb())
+
+        val internetConnection = (application as MyApplication).hasInternetConnection()
+        if(internetConnection){
+            val firestoreDatabase = Firebase.firestore
+            val docRef = firestoreDatabase.collection("books")
+            docRef.addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                val books: List <Book> = snapshots!!.documents.mapNotNull {it.toObject (Book:: class .java)}
+                saveBooksToLocalDatabase(books)
+                adapter.setBooks(books)
+            }
+        }
 
     }
 
     // TODO: Load Books from Room
-    private fun loadBooksFromLocalDb() {
-        throw NotImplementedError()
+    private fun loadBooksFromLocalDb(): List<Book> {
+        val booksInteracts = castApplication()
+        return booksInteracts.getAllBooks()
     }
 
     // TODO: Save Books to Local Storage
     private fun saveBooksToLocalDatabase(books: List<Book>) {
-        throw NotImplementedError()
+        val booksInteracts = castApplication()
+        booksInteracts.saveBooks(books)
     }
+
+    //function fot cast to MyApplication
+    private fun castApplication() = (application as MyApplication).getBooksInteractor()
 }
