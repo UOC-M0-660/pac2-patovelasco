@@ -62,6 +62,12 @@ class BooksListAdapter(private var books: List<Book>) : RecyclerView.Adapter<Boo
         holder.authorView.text = book.author
 
         // TODO: Set View Click Listener
+        holder.view.setOnClickListener {
+            val activity = holder.view.context
+            val intent = Intent(activity, BookDetailActivity::class.java)
+            intent.putExtra(BookDetailFragment.ARG_ITEM_ID, book.uid)
+            activity.startActivity(intent)
+        }
     }
 
     // Returns total items in Adapter
