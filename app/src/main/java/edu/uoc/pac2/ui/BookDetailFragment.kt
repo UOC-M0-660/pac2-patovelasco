@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import edu.uoc.pac2.MyApplication
 import edu.uoc.pac2.R
 import edu.uoc.pac2.data.Book
-import kotlinx.android.synthetic.main.activity_book_detail.*
+
 
 /**
  * A fragment representing a single Book detail screen.
@@ -37,23 +39,23 @@ class BookDetailFragment : Fragment() {
         arguments?.let {
             booksInteracts.getBookById(it.getInt(ARG_ITEM_ID))?.let { it1 ->
                 initUI(it1)
-                activity!!.fab.setOnClickListener { shareContent(it1) }
+                activity!!.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { shareContent(it1) }
             }
         }
     }
 
     // TODO: Init UI with book details
     private fun initUI(book: Book) {
-        book?.let {
-            activity?.toolbar_layout?.title = it.title
+        book.let {
+            activity!!.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = book.title
+            //set image with Glide
+            GlideApp.with(this)
+                    .load(book.urlImage)
+                    .into(activity!!.findViewById(R.id.book_image))
         }
         view!!.findViewById<TextView>(R.id.book_author).text = book.author
         view!!.findViewById<TextView>(R.id.book_date).text = book.publicationDate
         view!!.findViewById<TextView>(R.id.book_detail).text = book.description
-        //set image with Glide
-        GlideApp.with(this)
-                .load(book.urlImage)
-                .into(view!!.findViewById(R.id.book_image))
     }
 
     // TODO: Share Book Title and Image URL

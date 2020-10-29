@@ -5,19 +5,6 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/book_image"
-        android:layout_width="130dp"
-        android:layout_height="220dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/title_book_detail"
-        android:scaleType="fitStart"
-        android:src="@drawable/el_juego_de_ender"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent=".5" />
-
     <TextView
         android:id="@+id/book_author"
         style="?android:attr/textAppearanceLarge"
