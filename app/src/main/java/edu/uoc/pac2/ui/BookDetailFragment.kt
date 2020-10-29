@@ -60,12 +60,14 @@ class BookDetailFragment : Fragment() {
 
     // TODO: Share Book Title and Image URL
     private fun shareContent(book: Book) {
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "Book: ${book.title}\nURL: ${book.urlImage}")
-            type = "text/plain"
-        }
-        val shareIntent = Intent.createChooser(sendIntent, "Share book information to..")
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.putExtra(Intent.EXTRA_TEXT, "Book: ${book.title}\nURL: ${book.urlImage}")
+        intent.type = "text/plain"
+        val shareIntent = Intent()
+        shareIntent.action = Intent.ACTION_CHOOSER
+        shareIntent.putExtra(Intent.EXTRA_TITLE, "Share book information to..")
+        shareIntent.putExtra(Intent.EXTRA_INTENT, intent)
         startActivity(shareIntent)
     }
 
