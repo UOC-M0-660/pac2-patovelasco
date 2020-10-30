@@ -31,7 +31,6 @@ class BookDetailFragment : Fragment() {
         loadBook()
     }
 
-
     // TODO: Get Book for the given {@param ARG_ITEM_ID} Book id
     private fun loadBook() {
         val booksInteracts = (activity?.application as MyApplication).getBooksInteractor()

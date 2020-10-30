@@ -39,6 +39,7 @@ class BookListActivity : AppCompatActivity() {
         // TODO: Add books data to Firestore [Use once for new projects with empty Firestore Database]
         //FirestoreBookData.addBooksDataToFirestoreDatabase()
 
+        // Set AdMob
         MobileAds.initialize(this) {}
         mAdView = findViewById(R.id.adView)
         val adRequest = AdRequest.Builder().build()

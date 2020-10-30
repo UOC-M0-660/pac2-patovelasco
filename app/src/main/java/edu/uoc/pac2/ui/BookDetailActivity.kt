@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
-import com.google.android.gms.ads.MobileAds
 import edu.uoc.pac2.R
 import kotlinx.android.synthetic.main.activity_book_detail.*
 

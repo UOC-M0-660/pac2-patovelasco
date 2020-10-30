@@ -44,5 +44,4 @@
         app:layout_constraintStart_toEndOf="@+id/book_image"
         app:layout_constraintTop_toBottomOf="@+id/book_date" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

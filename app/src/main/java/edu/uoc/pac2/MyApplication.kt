@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
 import androidx.room.Room
 import edu.uoc.pac2.data.*
 
@@ -31,6 +30,7 @@ class MyApplication : Application() {
         return booksInteractor
     }
 
+    //function for validate connection to internet
     fun hasInternetConnection(): Boolean {
         // TODO: Add Internet Check logic.
         val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
